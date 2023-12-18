@@ -1,3 +1,9 @@
+# Fetches BioModels that can be cached to enhance speed of searches though BioModels for 
+# Sys-Bio Projects
+
+# Install following package: 
+# pip install biomodels_restful_api_client 
+
 import json
 from biomodels_restful_api_client import services as bmservices
 import re
