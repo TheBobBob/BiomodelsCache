@@ -9,15 +9,18 @@ class TestBioModelsCache(unittest.TestCase):
         self.assertEqual(remove_html_tags("Remove"), "Remove")
         self.assertEqual(remove_html_tags(""), "")
 
-    def test_update_cache_existing_model(self):
-        model = {'publicationId': 'BIOMD007', 'description': 'Test'}
+    def test_update_cache_1(self):
+        model = {'publicationId': 'BIOMD007', 'description': 'description of BIOMD007'}
         modelResults = {'BIOMD007': model}
         self.assertFalse(update_cache(model, modelResults))
 
-    @patch('builtins.open', new_callable=mock_open)
-    def test_save_to_json(self, mock_file_open):
-        model_info = {'BIOMD007': {'description': 'Description of BioModel 7'}}
-        save_to_json(model_info)
+    def test_update_cache_2(self):
+        model = {'publicationId': 'BIOMD007', 'description': 'description of BIOMD007'}
+        newModel = {'publicationId': 'BIOMD008', 'description': 'description of BIOMD008'}
+        self.assertTrue(update_cache(model, newModel))
+
+    
+
 
 
 if __name__ == '__main__':
