@@ -64,6 +64,7 @@ def cache_biomodels():
               updated_cache = update_cache(result, modelResults)
               if updated_cache:
                   i += 1
+
     save_to_json(modelResults)
 
 
