@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, mock_open
-from  src.bioModels_cache import remove_html_tags, update_cache, save_to_json, cache_biomodels 
+from  src.BioModelsCache import remove_html_tags, update_cache
 
 class TestBioModelsCache(unittest.TestCase):
 
@@ -18,9 +18,6 @@ class TestBioModelsCache(unittest.TestCase):
         model = {'publicationId': 'BIOMD007', 'description': 'description of BIOMD007'}
         newModel = {'publicationId': 'BIOMD008', 'description': 'description of BIOMD008'}
         self.assertTrue(update_cache(model, newModel))
-
-    
-
 
 
 if __name__ == '__main__':

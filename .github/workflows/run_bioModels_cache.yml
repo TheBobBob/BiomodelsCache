@@ -1,4 +1,4 @@
-name: run bioModels_cache.py
+name: run BioModelsCache.py
 
 on:
   schedule:
@@ -23,4 +23,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute py script 
-        run: python bioModels_cache.py
+        run: python BioModelsCache.py
