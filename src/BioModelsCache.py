@@ -48,16 +48,14 @@ class BioModelsCache:
             is already in the cache.
         """
         model_id = model['publicationId']
-        if "BIOMD" not in model_id:
-            return False
         if model_id not in self.modelResults or self.modelResults[model_id] != model:
-            cleaned_description = self.remove_html_tags(model["description"])
-            url = self.extract_urls(cleaned_description)
-                
             self.modelResults[model_id] = {
                 'name': model.get('name', ''),
-                'url': url,
-                'model_id': model_id
+                'authors': [author.get('name') for author in model.get('publication').get('authors', [])],
+                'url': model.get('publication').get('link', ''),
+                'model_id': model_id,
+                'title': model.get('publication').get('title', ''),
+                'synopsis': model.get('publication').get('synopsis', '')
             }
             return True
         return False
