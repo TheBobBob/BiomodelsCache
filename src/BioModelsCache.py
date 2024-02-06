@@ -2,7 +2,7 @@ import json
 from biomodels_restful_api_client import services as bmservices
 import re
 import argparse
-
+import time
 
 class BioModelsCache:
     def __init__(self, total_models=2000):
@@ -73,6 +73,7 @@ class BioModelsCache:
                     updated_cache = self.update_cache(result)
                     if updated_cache:
                         i += 1
+                        print(i)
 
         self.save_to_json()
 
@@ -80,16 +81,36 @@ class BioModelsCache:
         """Saves the cached biomodel to the JSON file."""
         with open('cached_biomodels.json', 'w') as json_file:
             json.dump(self.modelResults, json_file)
+    
+    def search_models(self, search):
+        """Test the cache."""
+        with open('cached_biomodels.json', 'r') as json_file:
+            data = json.load(json_file)
+        start_time = time.time()
+        search = search.lower()
+        for model in data:
+            if search in model.lower():
+                print(model)
+            elif search in data[model]['name'].lower():
+                print(model)
+            elif search in [author.lower() for author in data[model]['authors']]:
+                print(model)
+            elif search in data[model]['title'].lower():
+                print(model)
+            elif search in data[model]['synopsis'].lower():
+                print(model)
+        print("--- %s seconds ---" % (time.time() - start_time))
 
 
 def main():
     parser = argparse.ArgumentParser(description='Cache BioModels data.')
-    parser.add_argument('--total', type=int, default=2000,
+    parser.add_argument('--total', type=int, default=1072,
                         help='Total number of models to cache (default: 2000)')
     args = parser.parse_args()
 
     cache = BioModelsCache(total_models=args.total)
     cache.cache_biomodels()
+    cache.search_models("biomd")
 
 if __name__ == '__main__':
     main()
