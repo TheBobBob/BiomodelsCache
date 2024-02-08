@@ -7,7 +7,7 @@ import time
 class BioModelsCache:
     def __init__(self, total_models=2000):
         self.total_models = total_models
-        self.modelResults = {}
+        self.model_results = {}
 
     def remove_html_tags(self, text):
         """
@@ -36,7 +36,7 @@ class BioModelsCache:
         return urls 
     
 
-    def update_cache(self, model):
+    def update_cache(self, model, model_id):
         """
         Update the cache with the model data if it's not already present.
 
@@ -47,9 +47,10 @@ class BioModelsCache:
             bool: Returns True if the cache was updated with the model, False if it is not a BioModel or if the Biomodel
             is already in the cache.
         """
-        model_id = model['publicationId']
-        if model_id not in self.modelResults or self.modelResults[model_id] != model:
-            self.modelResults[model_id] = {
+        if 'publication' not in model:
+            return False
+        if model_id not in self.model_results or self.model_results[model_id] != model:
+            self.model_results[model_id] = {
                 'name': model.get('name', ''),
                 'authors': [author.get('name') for author in model.get('publication').get('authors', [])],
                 'url': model.get('publication').get('link', ''),
@@ -66,51 +67,54 @@ class BioModelsCache:
         modelIdentifiers = bmservices.get_model_identifiers()
         models = modelIdentifiers["models"]
 
-        for nModel in models:
-            if i < self.total_models:
-                result = bmservices.get_model_info(nModel)
-                if 'publicationId' in result:
-                    updated_cache = self.update_cache(result)
-                    if updated_cache:
-                        i += 1
-                        print(i)
+        for n_model in models:
+            result = bmservices.get_model_info(n_model)
+            updated_cache = self.update_cache(result, n_model)
+            if updated_cache:
+                i += 1
+                print(i)
 
         self.save_to_json()
 
     def save_to_json(self):
         """Saves the cached biomodel to the JSON file."""
         with open('cached_biomodels.json', 'w') as json_file:
-            json.dump(self.modelResults, json_file)
+            json.dump(self.model_results, json_file)
     
     def search_models(self, search):
-        """Test the cache."""
+        """Search the cache and return list of search results."""
         with open('cached_biomodels.json', 'r') as json_file:
             data = json.load(json_file)
-        start_time = time.time()
+        if search == "*":
+            return list(data.keys())
+        search_results = []
+        # start_time = time.time()
         search = search.lower()
+
+        """Search for the model in the cache. If the search
+        term is found in the model ID, model name, authors, title or synopsis,
+        add the model to the search results."""
+        
         for model in data:
-            if search in model.lower():
-                print(model)
-            elif search in data[model]['name'].lower():
-                print(model)
-            elif search in [author.lower() for author in data[model]['authors']]:
-                print(model)
-            elif search in data[model]['title'].lower():
-                print(model)
-            elif search in data[model]['synopsis'].lower():
-                print(model)
-        print("--- %s seconds ---" % (time.time() - start_time))
+            if search in model.lower() or search in data[model]['name'].lower() or \
+            search in [author.lower() for author in data[model]['authors']] or \
+            search in data[model]['title'].lower() or search in data[model]['synopsis'].lower():
+                search_results.append(model)
+        # print("--- %s seconds ---" % (time.time() - start_time))
+        # print(len(search_results))
+        # print(len(data))
+        return search_results
 
 
 def main():
     parser = argparse.ArgumentParser(description='Cache BioModels data.')
-    parser.add_argument('--total', type=int, default=1072,
+    parser.add_argument('--total', type=int, default=2000,
                         help='Total number of models to cache (default: 2000)')
     args = parser.parse_args()
 
     cache = BioModelsCache(total_models=args.total)
     cache.cache_biomodels()
-    cache.search_models("biomd")
+    cache.search_models("MODEL1703310000")
 
 if __name__ == '__main__':
     main()
