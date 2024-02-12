@@ -3,6 +3,7 @@ from biomodels_restful_api_client import services as bmservices
 import re
 import argparse
 import time
+from github import Github
 
 class BioModelsCache:
     def __init__(self, total_models=2000):
@@ -105,6 +106,27 @@ class BioModelsCache:
         # print(len(data))
         return search_results
 
+    def get_model(self, model_id):
+        """Return the model data for the given model ID."""
+        user = "konankisa"
+        repo = "BiomodelsStore"
+        repo = Github().get_user(user).get_repo(repo)
+        try:
+            content = repo.get_contents(f"{model_id}.xml")
+        except:
+            content = None
+        if content:
+            with open('model.xml', 'w', newline="") as file:
+                file.write(content.decoded_content.decode("utf-8").replace("\r\n", "\n"))
+        else:
+            raise ValueError("Model not found")
+        # with open('model.ant', 'w', newline="") as file:
+        #     file.write(content.decoded_content.decode("utf-8").replace("\r\n", "\n"))
+        # repo = Octokit().repos.get_contents(owner="konankisa", repo="BiomodelsStore", path="BIOMD0000000680.ant")
+        # decoded = base64.b64decode(repo.json["content"]).decode()
+        # with open('model.ant', 'w') as file:
+        #     file.write(decoded)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Cache BioModels data.')
@@ -113,8 +135,9 @@ def main():
     args = parser.parse_args()
 
     cache = BioModelsCache(total_models=args.total)
-    cache.cache_biomodels()
+    # cache.cache_biomodels()
     cache.search_models("MODEL1703310000")
+    cache.get_model("MODEL1703310000")
 
 if __name__ == '__main__':
     main()
