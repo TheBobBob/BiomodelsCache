@@ -112,32 +112,20 @@ class BioModelsCache:
         repo = "BiomodelsStore"
         repo = Github().get_user(user).get_repo(repo)
         try:
-            content = repo.get_contents(f"{model_id}.xml")
+            content = repo.get_contents(f"biomodels/{model_id}.xml")
         except:
             content = None
         if content:
-            with open('model.xml', 'w', newline="") as file:
-                file.write(content.decoded_content.decode("utf-8").replace("\r\n", "\n"))
+            with open('model.xml', 'wb') as file:
+                file.write(content.decoded_content)
         else:
             raise ValueError("Model not found")
-        # with open('model.ant', 'w', newline="") as file:
-        #     file.write(content.decoded_content.decode("utf-8").replace("\r\n", "\n"))
-        # repo = Octokit().repos.get_contents(owner="konankisa", repo="BiomodelsStore", path="BIOMD0000000680.ant")
-        # decoded = base64.b64decode(repo.json["content"]).decode()
-        # with open('model.ant', 'w') as file:
-        #     file.write(decoded)
-
 
 def main():
-    parser = argparse.ArgumentParser(description='Cache BioModels data.')
-    parser.add_argument('--total', type=int, default=2000,
-                        help='Total number of models to cache (default: 2000)')
-    args = parser.parse_args()
-
-    cache = BioModelsCache(total_models=args.total)
+    cache = BioModelsCache()
     # cache.cache_biomodels()
-    cache.search_models("MODEL1703310000")
-    cache.get_model("MODEL1703310000")
+    cache.search_models("MODEL1903260003")
+    cache.get_model("MODEL1901090001")
 
 if __name__ == '__main__':
     main()
