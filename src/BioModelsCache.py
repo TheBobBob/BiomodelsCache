@@ -123,7 +123,7 @@ class BioModelsCache:
 
 def main():
     cache = BioModelsCache()
-    # cache.cache_biomodels()
+    # cache.cache_biomodels() # Update/build BioModelsCache
     cache.search_models("MODEL1903260003")
     cache.get_model("MODEL1901090001")
 
