@@ -1,3 +1,8 @@
+# Need following packages installed:
+# pip install biomodels-restful-api-client 
+# Ref: https://bitbucket.org/biomodels/biomodels-resftful-api-client/src/main/
+# pip install PyGithub
+
 import json
 from biomodels_restful_api_client import services as bmservices
 import re
@@ -123,9 +128,9 @@ class BioModelsCache:
 
 def main():
     cache = BioModelsCache()
-    # cache.cache_biomodels() # Update/build BioModelsCache
-    cache.search_models("MODEL1903260003")
-    cache.get_model("MODEL1901090001")
+    cache.cache_biomodels() # Update/build BioModelsCache
+    cache.search_models("MODEL1903260003") # Check search()
+    cache.get_model("MODEL1901090001") # Check get_model()
 
 if __name__ == '__main__':
     main()
