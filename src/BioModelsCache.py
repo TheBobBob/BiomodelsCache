@@ -78,7 +78,7 @@ class BioModelsCache:
             updated_cache = self.update_cache(result, n_model)
             if updated_cache:
                 i += 1
-                print(i)
+                #print(i)
 
         self.save_to_json()
 
