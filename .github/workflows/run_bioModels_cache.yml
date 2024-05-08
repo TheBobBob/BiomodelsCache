@@ -9,7 +9,7 @@ on:
       update_cache:
         description: 'Update Biomodels cache'
         required: false
-        default: 'false'
+        default: 'No input needed'
 jobs:
   build:
     runs-on: ubuntu-latest
