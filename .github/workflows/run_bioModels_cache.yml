@@ -30,3 +30,10 @@ jobs:
       - name: execute BioModelsCache.py script 
         run: python BioModelsCache.py
         working-directory: src
+      - name: Check in updated cached_biomodels.json
+        run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -m "Updated cached biomodels info" src/cached_biomodels.json
+          git push
