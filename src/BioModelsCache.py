@@ -111,13 +111,16 @@ class BioModelsCache:
         # print(len(data))
         return search_results
 
-    def get_model(self, model_id):
+    def get_model(self, model_id): # TODO: need to fix, model id does not correlate to model file name
         """Return the model data for the given model ID."""
-        user = "konankisa"
+        user = "sys-bio"
         repo = "BiomodelsStore"
         repo = Github().get_user(user).get_repo(repo)
+        print("Repository name: ",repo.name)
         try:
-            content = repo.get_contents(f"biomodels/{model_id}.xml")
+            #content2 = repo.get_contents(f"biomodels/{model_id}")
+            #print(content2.pop(0))
+            content = repo.get_contents(f"biomodels/{model_id}/{model_id}_url.xml")
         except:
             content = None
         if content:
@@ -128,11 +131,11 @@ class BioModelsCache:
 
 def main():
     cache = BioModelsCache()
-    #cache.cache_biomodels() # Update/build BioModelsCache
+    cache.cache_biomodels() # Update/build BioModelsCache
     print("Test cache.searchmodels()...")
-    cache.search_models("BIOMD0000000002") # Check search()
+    print(cache.search_models("sodium")) # Check search(), returns multiple model ids
     print("Test cache.get_model()......")
-    cache.get_model("BIOMD0000000003") # Check get_model()
+    cache.get_model("BIOMD0000000002") # Check get_model()
 
 if __name__ == '__main__':
     main()
