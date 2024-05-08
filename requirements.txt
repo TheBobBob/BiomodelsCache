@@ -1,1 +1,2 @@
 biomodels_restful_api_client==0.1.1
+requests
