@@ -128,11 +128,11 @@ class BioModelsCache:
 
 def main():
     cache = BioModelsCache()
-    cache.cache_biomodels() # Update/build BioModelsCache
+    #cache.cache_biomodels() # Update/build BioModelsCache
     print("Test cache.searchmodels()...")
-    cache.search_models("MODEL1903260003") # Check search()
+    cache.search_models("BIOMD0000000002") # Check search()
     print("Test cache.get_model()......")
-    cache.get_model("MODEL1901090001") # Check get_model()
+    cache.get_model("BIOMD0000000003") # Check get_model()
 
 if __name__ == '__main__':
     main()
