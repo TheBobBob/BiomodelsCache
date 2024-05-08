@@ -4,7 +4,12 @@ on:
   schedule:
     # runs the first day of every month
     - cron: '0 0 1 * *'
-
+  workflow_dispatch:
+    inputs:
+      update_cache:
+        description: 'Update Biomodels cache'
+        required: true
+        default: 'true'
 jobs:
   build:
     runs-on: ubuntu-latest
