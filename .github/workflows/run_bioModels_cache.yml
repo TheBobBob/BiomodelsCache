@@ -26,7 +26,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          pwd
       - name: execute BioModelsCache.py script 
         run: python BioModelsCache.py
-        working-directory: $GITHUB_WORKSPACE/src
+        working-directory: /src
