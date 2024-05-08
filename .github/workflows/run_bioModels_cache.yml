@@ -8,8 +8,8 @@ on:
     inputs:
       update_cache:
         description: 'Update Biomodels cache'
-        required: true
-        default: 'true'
+        required: false
+        default: 'false'
 jobs:
   build:
     runs-on: ubuntu-latest
