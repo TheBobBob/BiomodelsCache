@@ -25,5 +25,5 @@ Once you have the BioModel ID of the model you are interested in you can then do
 
 This takes a string corresponding to the model ID (ex: `"BIOMD0000000002"`) and returns the SBML model as a string. This function calls the [BiomodelsStore repo](https://github.com/sys-bio/BiomodelsStore) to get the SBML model code.
 
-A simple HTML/js webpage that uses the JavaScript client is here:  
+A simple HTML/js webpage that uses the JavaScript client is here: [https://github.com/sys-bio/BiomodelsCache/tree/main/examples]. See `example_usage.js` for the actual calls to the BioModels cache. 
 
