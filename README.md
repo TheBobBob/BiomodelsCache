@@ -1,5 +1,5 @@
 # BiomodelsCache
-A biomodels cache for faster lookup of BioModels [https://www.ebi.ac.uk/biomodels/] information. It can be used the [BiomodelsStore repo](https://github.com/sys-bio/BiomodelsStore) for faster search and model download compared to using the REST API at Biomodels (https://www.ebi.ac.uk/biomodels/docs/). This model database is stored in json format (`../src/cached_biomodels.json`) and currently contains the following fields:
+A biomodels cache for faster lookup of BioModels [https://www.ebi.ac.uk/biomodels/] information. It can be used with the [BiomodelsStore repo](https://github.com/sys-bio/BiomodelsStore) for faster search and model download compared to using the REST API at Biomodels (https://www.ebi.ac.uk/biomodels/docs/). This model database is stored in json format (`../src/cached_biomodels.json`) and currently contains the following fields:
 - Biomodel ID
 - Model name
 - SBML model file name
