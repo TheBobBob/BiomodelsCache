@@ -9,7 +9,7 @@ A biomodels cache for faster lookup of BioModels [https://www.ebi.ac.uk/biomodel
 - Data published
 - Journal paper published in.
 
-Note: Other field can be added as neccessary or requested. 
+Note: Other fields can be added as neccessary or requested. 
 
 See https://github.com/sys-bio/BiomodelsStore for cached SBML models from Biomodels.
 
