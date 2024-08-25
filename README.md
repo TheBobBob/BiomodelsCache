@@ -6,7 +6,7 @@ A biomodels cache for faster lookup of BioModels [https://www.ebi.ac.uk/biomodel
 - Published paper title
 - Authors
 - Citations
-- Data published
+- Date published
 - Journal paper published in.
 
 Note: Other fields can be added as neccessary or requested. This database is updated once a month. 
